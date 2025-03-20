@@ -16,13 +16,13 @@ import backgroundImage from "~/images/Library-Postcard-004_2.webp";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Dashboard | Dennis Law" },
+    { title: "Dashboard | Dennislaw" },
     {
       name: "description",
       content:
         "Explore legal principles, search cases, and build your legal knowledge",
     },
-    { name: "og:title", content: "Dashboard | Dennis Law" },
+    { name: "og:title", content: "Dashboard | Dennislaw" },
     {
       name: "og:description",
       content:
@@ -86,7 +86,7 @@ const Dashboard = () => {
   return (
     <AdminLayout>
       <div className="w-full">
-        {/* Welcome Section */}
+        {/* Welcome Section
         <section className="mb-8">
           <div className="bg-gradient-to-r from-primary to-blue-700 rounded-xl p-6 text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-pattern opacity-10"></div>
@@ -101,28 +101,27 @@ const Dashboard = () => {
               <div className="flex gap-3 mt-4">
                 <Button
                   className="bg-white text-primary font-semibold hover:bg-opacity-90"
-                  onClick={() => navigate("/nuggets")}
+                  onPress={() => navigate("/nuggets")}
                 >
                   Explore Nuggets
                 </Button>
                 <Button
                   className="bg-transparent border border-white text-white font-semibold hover:bg-white/10"
-                  onClick={() => navigate("/profile")}
+                  onPress={() => navigate("/profile")}
                 >
                   View Profile
                 </Button>
               </div>
             </div>
 
-            {/* Decorative elements */}
             <div className="absolute right-4 bottom-4 md:right-10 md:bottom-4 w-24 h-24 md:w-32 md:h-32 bg-white/10 rounded-full blur-xl"></div>
             <div className="absolute right-20 top-10 w-16 h-16 bg-blue-400/20 rounded-full blur-lg"></div>
           </div>
-        </section>
+        </section> */}
 
         {/* Statistics Row */}
-        <section className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="p-4 shadow-md hover:shadow-lg transition-shadow">
+        <section className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* <Card className="p-4 shadow-md hover:shadow-lg transition-shadow">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-blue-100 mr-4">
                 <MdLibraryBooks className="text-blue-600 text-xl" />
@@ -145,7 +144,7 @@ const Dashboard = () => {
               className="mt-4"
               isIndeterminate={isLoading}
             />
-          </Card>
+          </Card> */}
 
           <Card className="p-4 shadow-md hover:shadow-lg transition-shadow">
             <div className="flex items-center">
@@ -195,6 +194,29 @@ const Dashboard = () => {
             />
           </Card>
         </section>
+        {/* Trending Section */}
+        <section className="mb-8">
+          <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <div className="flex items-center gap-2 mb-4">
+              <MdTrendingUp className="text-primary text-xl" />
+              <h2 className="text-xl font-bold text-gray-800">
+                Trending 
+              </h2>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {trendingKeywords.map((keyword, index) => (
+                <Button
+                  key={index}
+                  className="bg-white border border-gray-200 text-gray-700 hover:bg-gray-100"
+                  onPress={() => navigate(`/search?q=${keyword}`)}
+                >
+                  {keyword}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Main Categories Section */}
         <section className="mb-8">
@@ -204,7 +226,7 @@ const Dashboard = () => {
             </h2>
             <Button
               className="text-primary bg-transparent"
-              onClick={() => navigate("/nuggets")}
+              onPress={() => navigate("/nuggets")}
               endContent={<MdArrowRight />}
             >
               View All
@@ -229,7 +251,7 @@ const Dashboard = () => {
                 </p>
                 <Button
                   className="w-full bg-gradient-to-r from-pink-500 to-pink-700 text-white"
-                  onClick={() => goToCategory("areaOfLaw")}
+                  onPress={() => navigate("/nuggets")}
                 >
                   Explore Areas
                 </Button>
@@ -251,7 +273,7 @@ const Dashboard = () => {
                 </p>
                 <Button
                   className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white"
-                  onClick={() => goToCategory("courts")}
+                  onPress={() => navigate("/nuggets/courts")}
                 >
                   Explore Courts
                 </Button>
@@ -273,36 +295,12 @@ const Dashboard = () => {
                 </p>
                 <Button
                   className="w-full bg-gradient-to-r from-green-500 to-green-700 text-white"
-                  onClick={() => goToCategory("judges")}
+                  onPress={() => navigate("/nuggets/judges")}
                 >
                   Explore Judges
                 </Button>
               </div>
             </Card>
-          </div>
-        </section>
-
-        {/* Trending Section */}
-        <section className="mb-8">
-          <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-            <div className="flex items-center gap-2 mb-4">
-              <MdTrendingUp className="text-primary text-xl" />
-              <h2 className="text-xl font-bold text-gray-800">
-                Trending Topics
-              </h2>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {trendingKeywords.map((keyword, index) => (
-                <Button
-                  key={index}
-                  className="bg-white border border-gray-200 text-gray-700 hover:bg-gray-100"
-                  onClick={() => navigate(`/nuggets?search=${keyword}`)}
-                >
-                  {keyword}
-                </Button>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -317,7 +315,7 @@ const Dashboard = () => {
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  Dennis Law Library
+                  Dennislaw Library
                 </h3>
                 <p className="text-gray-600 mb-4">
                   Access comprehensive case law and legal resources in our
@@ -326,9 +324,9 @@ const Dashboard = () => {
                 <Button
                   className="bg-gradient-to-r from-indigo-700 to-blue-900 text-white"
                   endContent={<MdArrowRight />}
-                  onClick={() => navigate("/dennislaw")}
+                  onPress={() => navigate("/dennislaw")}
                 >
-                  Go to Dennis Law
+                  Go to Dennislaw
                 </Button>
               </div>
               <div className="md:w-1/3 bg-gradient-to-br from-indigo-500 to-blue-700 flex items-center justify-center p-6">

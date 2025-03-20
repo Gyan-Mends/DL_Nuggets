@@ -32,12 +32,12 @@ interface LoaderData {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Areas of Law | Dennis Law" },
+    { title: "Areas of Law | Dennislaw" },
     {
       name: "description",
       content: "Browse nuggets by different areas of law",
     },
-    { name: "og:title", content: "Areas of Law | Dennis Law" },
+    { name: "og:title", content: "Areas of Law | Dennislaw" },
     {
       name: "og:description",
       content: "Explore legal principles categorized by different areas of law",
@@ -55,7 +55,7 @@ const AreaOfLaw = () => {
 
   return (
     <div className="">
-      <div className="lg:grid lg:grid-cols-4 gap-4 bg-white p-4 shadow-sm rounded-xl border border-black/5">
+      <div className="flex flex-col lg:grid lg:grid-cols-4 gap-4 bg-white p-4 shadow-sm rounded-xl border border-black/5">
         {areaOfLaw.data.map((area) => (
           <Link
             key={area.id}
