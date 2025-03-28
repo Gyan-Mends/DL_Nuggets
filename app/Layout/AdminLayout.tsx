@@ -22,6 +22,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Avatar,
+  Tooltip,
 } from "@nextui-org/react";
 import { IoMenuOutline } from "react-icons/io5";
 import {
@@ -44,6 +45,7 @@ interface NavItem {
   icon: React.ReactNode;
   label: string;
   path: string;
+  content: string;
 }
 
 // Define SearchUser interface to fix linter errors
@@ -59,21 +61,25 @@ const navItems: NavItem[] = [
     icon: <MdHome className="text-xl" />,
     label: "Explore",
     path: "/dashboard",
+    content: "Explore",
   },
   {
     icon: <MdBook className="text-xl" />,
     label: "Nuggets",
     path: "/nuggets",
+    content: "Nuggets",
   },
   {
     icon: <MdBookmarks className="text-xl" />,
     label: "My Nuggets",
     path: "/my-nuggets",
+    content: "My Nuggets",
   },
   {
     icon: <MdVerifiedUser className="text-xl" />,
     label: "My Profile",
     path: "/profile",
+    content: "Profile",
   },
 ];
 
@@ -203,21 +209,23 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             <nav className="flex-1 overflow-y-auto py-6">
               <div className="px-3 space-y-1">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200
+                  <Tooltip content={item.content}>
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200
                     ${
                       location.pathname === item.path
                         ? "bg-primary text-white"
                         : "text-gray-600 hover:bg-gray-100"
                     }`}
-                  >
-                    <div className={`${isCollapsed ? "mx-auto" : ""}`}>
-                      {item.icon}
-                    </div>
-                    {!isCollapsed && <span>{item.label}</span>}
-                  </Link>
+                    >
+                      <div className={`${isCollapsed ? "mx-auto" : ""}`}>
+                        {item.icon}
+                      </div>
+                      {!isCollapsed && <span>{item.label}</span>}
+                    </Link>
+                  </Tooltip>
                 ))}
               </div>
             </nav>
@@ -277,10 +285,10 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                 <MdSearch className="text-2xl text-gray-600" />
               </Button>
 
-              <Button isIconOnly variant="light" className="relative">
+              {/* <Button isIconOnly variant="light" className="relative">
                 <MdNotifications className="text-2xl text-gray-600" />
                 <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
-              </Button>
+              </Button> */}
 
               {/* User dropdown */}
               <Dropdown>
@@ -297,7 +305,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                     key="profile"
                     startContent={<MdVerifiedUser className="text-primary" />}
                     description="Manage your account"
-                    onPress={()=>navigate("/profile")}
+                    onPress={() => navigate("/profile")}
                   >
                     My Profile
                   </DropdownItem>
@@ -336,20 +344,22 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
           {/* Mobile Bottom Navigation */}
           <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30">
             <div className="flex justify-around py-2">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `flex flex-col items-center py-1 px-3 ${
-                      isActive ? "text-primary" : "text-gray-500"
-                    }`
-                  }
-                >
-                  {item.icon}
-                  <span className="text-xs mt-1">{item.label}</span>
-                </NavLink>
-              ))}
+              {navItems
+                .filter((item) => item.path !== "/profile")
+                .map((item) => (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `flex flex-col items-center py-1 px-3 ${
+                        isActive ? "text-primary" : "text-gray-500"
+                      }`
+                    }
+                  >
+                    {item.icon}
+                    <span className="text-xs mt-1">{item.label}</span>
+                  </NavLink>
+                ))}
               <div
                 className="flex flex-col items-center py-1 px-3 text-gray-500 cursor-pointer"
                 onClick={handleLogout}

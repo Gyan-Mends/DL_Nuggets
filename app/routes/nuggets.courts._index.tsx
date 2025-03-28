@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useNavigate } from "@remix-run/react";
 import { MdArrowRight } from "react-icons/md";
 import axios from "axios";
 import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Pagination } from "@nextui-org/react";
 
 // Define types for our data
 interface Court {
@@ -28,6 +29,9 @@ interface PaginatedResponse {
 interface LoaderData {
   courts: PaginatedResponse;
   baseUrl: string;
+  currentPage: number;
+  totalPages: number;
+  perPage: number;
 }
 
 export const meta: MetaFunction = () => {
@@ -51,7 +55,10 @@ export const meta: MetaFunction = () => {
 };
 
 const Courts = () => {
-  const { courts } = useLoaderData<LoaderData>();
+  const { courts, currentPage, totalPages, perPage } =
+    useLoaderData<LoaderData>();
+
+  const navigate = useNavigate();
 
   return (
     <div className="">
@@ -67,19 +74,38 @@ const Courts = () => {
           </Link>
         ))}
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-6">
+          <Pagination
+            color="primary"
+            page={currentPage}
+            total={Math.ceil(totalPages / perPage)}
+            showControls
+            onChange={(page) => navigate(`/nuggets/courts?page=${page}`)}
+          />
+        </div>
+      )}
     </div>
   );
 };
 
 export default Courts;
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  const page = searchParams.get("page") || "1";
+
   const baseUrl = process.env.NEXT_PUBLIC_DL_LIVE_URL;
   try {
-    const response = await axios.get(`${baseUrl}/courts`);
+    const response = await axios.get(`${baseUrl}/courts?limit=16&page=${page}`);
     return {
       courts: response.data,
       baseUrl,
+      currentPage: parseInt(response.data.meta.current_page),
+      totalPages: parseInt(response.data?.meta?.total),
+      perPage: parseInt(response.data?.meta?.per_page),
     };
   } catch (error) {
     throw new Error("Failed to fetch courts");

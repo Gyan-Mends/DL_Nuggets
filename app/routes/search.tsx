@@ -371,7 +371,7 @@ const Search = () => {
                 variant="light"
                 color="danger"
                 startContent={<MdFilterListOff />}
-                onClick={handleClearFilters}
+                onPress={handleClearFilters}
               >
                 Clear Filters
               </Button>
@@ -448,7 +448,7 @@ const Search = () => {
           <Button
             className="w-full mt-4"
             color="secondary"
-            onClick={() => handleSearch(searchQuery, 1)}
+            onPress={() => handleSearch(searchQuery, 1)}
           >
             Apply Filters
           </Button>
@@ -597,18 +597,19 @@ const Search = () => {
     <AdminLayout>
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-4">Search Dennislaw</h1>
+          {/* <h1 className="text-2xl font-bold mb-4">Search Dennislaw</h1> */}
 
           <div className="flex gap-2 mb-4">
             <Input
               type="text"
-              placeholder="Search for cases, principles, keywords..."
+              size="lg"
+              placeholder="Search for principles, area of law, keywords..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={(e) =>
                 e.key === "Enter" && handleSearch(searchQuery, 1)
               }
-              startContent={<MdSearch className="text-gray-400" />}
+              startContent={<MdSearch size={18} className="text-gray-400" />}
               endContent={
                 searchQuery ? (
                   <MdClear
@@ -619,21 +620,24 @@ const Search = () => {
               }
               classNames={{
                 input: "text-lg",
+                inputWrapper: "shadow-md bg-slate-0 border border-slate-2",
               }}
               className="flex-1"
             />
             <Button
+              size="lg"
               color="primary"
               isLoading={loading}
-              onClick={() => handleSearch(searchQuery, 1)}
+              onPress={() => handleSearch(searchQuery, 1)}
             >
               Search
             </Button>
             <Button
               isIconOnly
+               size="lg"
               variant={hasActiveFilters ? "solid" : "flat"}
               color={hasActiveFilters ? "secondary" : "default"}
-              onClick={() => setShowFilters(!showFilters)}
+              onPress={() => setShowFilters(!showFilters)}
             >
               <MdFilterAlt />
             </Button>
@@ -697,7 +701,7 @@ const Search = () => {
                 size="sm"
                 variant="light"
                 color="danger"
-                onClick={handleClearRecentSearches}
+                onPress={handleClearRecentSearches}
               >
                 Clear
               </Button>
@@ -726,7 +730,7 @@ const Search = () => {
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-3">
               <MdTrendingUp className="text-primary" />
-              <h2 className="text-lg font-semibold">Trending Topics</h2>
+              <h2 className="text-lg font-semibold">Trending</h2>
             </div>
             <div className="flex flex-wrap gap-2">
               {trendingKeywords.map((keyword: string, index: number) => (

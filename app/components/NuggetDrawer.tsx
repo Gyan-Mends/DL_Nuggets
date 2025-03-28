@@ -3,6 +3,7 @@ import { Link, useNavigate } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { MdBookmarkAdd, MdBookmarkRemove } from "react-icons/md";
 import axios from "axios";
+import { recordNuggetView } from "~/utils/api";
 
 interface Keyword {
   keyword: {
@@ -29,11 +30,12 @@ export interface Nugget {
   judge_title?: string;
   page_number?: number;
   area_of_laws?: AreaOfLaw[];
-  keywords?: Keyword[];
+  keywords?: any; // Can be array, string or object
   judge?: {
     id: number;
     fullname: string;
   };
+  judges?: string; // Add judges field which can be a string
   status?: string;
   file_url?: string | null;
   slug?: string;
@@ -68,6 +70,11 @@ const NuggetDrawer = ({
 
   useEffect(() => {
     if (nugget) {
+      const recordViewNugget = (nuggetId: number) => {
+        recordNuggetView(nuggetId, baseUrl!);
+      };
+
+      recordViewNugget(nugget.id);
       setIsBookmarked(!!nugget.is_bookmarked);
     }
   }, [nugget]);
@@ -131,7 +138,7 @@ const NuggetDrawer = ({
 
   const handleAreaOfLawClick = (areaId: number) => {
     onClose(); // Close the drawer first
-    navigate(`/nuggets/${areaId}`);
+    navigate(`/nuggets/area-of-law/${areaId}`);
   };
 
   return (
