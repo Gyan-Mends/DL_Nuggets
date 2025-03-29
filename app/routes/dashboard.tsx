@@ -10,9 +10,9 @@ import {
   MdPerson,
   MdCalendarToday,
 } from "react-icons/md";
-import { useNavigate, useLoaderData } from "@remix-run/react";
+import { useNavigate, useLoaderData, Link } from "@remix-run/react";
 import { useState, useEffect } from "react";
-import { MetaFunction, LoaderFunction, json } from "@remix-run/node";
+import { MetaFunction, LoaderFunction, json, redirect } from "@remix-run/node";
 import axios from "axios";
 import backgroundImage from "~/images/Library-Postcard-004_2.webp";
 import MostAccessed from "~/components/MostAccessed";
@@ -40,7 +40,8 @@ export const meta: MetaFunction = () => {
 };
 
 // Server loader to provide base URL
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+
   return json({
     baseUrl: process.env.NEXT_PUBLIC_DL_LIVE_URL,
   });
@@ -341,14 +342,14 @@ const Dashboard = () => {
             >
               Judges
             </Button>
-          </div> */}
+          </div>
         </section>
 
         {/* Main Categories Section */}
         <section className="mb-8">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-800">
-              Browse
+              Browse Categories
             </h2>
             <Button
               className=" bg-transparent"
@@ -447,13 +448,15 @@ const Dashboard = () => {
                   Access comprehensive case law and legal resources in our
                   advanced library.
                 </p>
+                <Link to="https://dennislawgh.com">
+
                 <Button
                   className="bg-default"
-                  endContent={<MdArrowRight />}
-                  onPress={() => navigate("/dennislaw")}
+                    endContent={<MdArrowRight />}
                 >
                   Go to Dennislaw
                 </Button>
+                </Link>
               </div>
               {/* <div className="md:w-1/3 bg-gradient-to-br from-indigo-500 to-blue-700 flex items-center justify-center p-6">
                 <div className="text-white text-center">
