@@ -341,14 +341,14 @@ const Dashboard = () => {
             >
               Judges
             </Button>
-          </div>
+          </div> */}
         </section>
 
         {/* Main Categories Section */}
         <section className="mb-8">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-800">
-              Browse Categories
+              Browse
             </h2>
             <Button
               className=" bg-transparent"
